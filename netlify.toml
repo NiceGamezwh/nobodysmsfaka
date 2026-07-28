@@ -1,0 +1,15 @@
+# Netlify 部署配置
+# Next.js 官方运行时会自动把 app/api/* 的路由处理器编译为 Netlify Functions，
+# 因此无需单独编写 netlify/functions 目录即可获得等价的 Serverless 后端。
+[build]
+  command = "next build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# 环境变量请在 Netlify 后台 Site settings → Environment variables 中配置：
+#   ZHIFU_MERCHANT_NUM   商户号
+#   ZHIFU_API_KEY        接入密钥
+#   WALLET_PRIVATE_KEY   管理员钱包私钥（务必只放服务端，切勿进前端）
+#   SEPOLIA_RPC_URL      Sepolia RPC 节点地址
