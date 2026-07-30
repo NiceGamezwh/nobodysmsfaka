@@ -79,7 +79,9 @@ function SuccessInner() {
           setStatus("success");
           setKami(data.kami);
           try {
-            sessionStorage.setItem(`kami:${orderNo}`, data.kami);
+            // 持久化到 localStorage：同一浏览器下跨刷新 / 跨标签页保留，
+            // 避免刷新后再次调用合约 getKami() 重复消耗库存
+            localStorage.setItem(`kami:${orderNo}`, data.kami);
           } catch {}
         } else if (data.paid === false) {
           // 未支付：支付确认可能仍在延迟中，自动重试
@@ -105,12 +107,14 @@ function SuccessInner() {
     [orderNo, tier, product, params],
   );
 
-  // 首次进入：优先读取本次会话已领取的卡密，避免刷新重复消耗库存
+  // 首次进入：优先读取本浏览器已领取的卡密，避免刷新重复消耗库存
   useEffect(() => {
     if (requested.current) return;
     requested.current = true;
     try {
-      const cached = sessionStorage.getItem(`kami:${orderNo}`);
+      // 用 localStorage 而非 sessionStorage：后者关闭/切换标签页即丢失，
+      // 会导致刷新时读不到缓存、再次调用合约领取。localStorage 可跨刷新持久保留。
+      const cached = localStorage.getItem(`kami:${orderNo}`);
       if (cached) {
         setKami(cached);
         setStatus("success");
@@ -162,7 +166,7 @@ function SuccessInner() {
             <div className="flex items-center gap-3">
               <span className="w-[10px] h-[10px] bg-[#FFD600] animate-pulse shrink-0" />
               <span className="font-ibm-mono text-[13px] text-[#888] tracking-[1px]">
-                {status === "confirming" ? "正在确认支付，请稍候…" : "正在核实支付并从链上领取卡密…"}
+                {status === "confirming" ? "正在确认支付，请稍候…" : "请不要刷新页面，正在核实支付并从链上领取卡密…"}
               </span>
             </div>
             {status === "confirming" && (
@@ -191,7 +195,7 @@ function SuccessInner() {
             <div className="flex items-start gap-3 px-4 py-3 bg-[#141200] border border-[#3D3600]">
               <span className="font-ibm-mono text-[14px] text-[#FFD600] shrink-0 leading-none mt-[2px]">!</span>
               <span className="font-ibm-mono text-[11px] text-[#A0A09A] tracking-[0.5px] leading-relaxed">
-                请立即复制并妥善保存。本站未做持久化存储，刷新或关闭页面后此卡密将无法找回。
+                请立即复制并妥善保存。卡密仅临时缓存在当前浏览器，换设备、换浏览器或清理缓存后将无法找回。
               </span>
             </div>
           </div>
