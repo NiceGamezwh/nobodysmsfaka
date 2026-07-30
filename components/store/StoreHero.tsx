@@ -32,7 +32,7 @@ export default function StoreHero() {
 
       {/* 副标题 */}
       <p className="font-ibm-mono text-[13px] md:text-[15px] text-[#888888] tracking-[1px] leading-[1.7] text-center w-full max-w-[720px] text-pretty">
-        请提前看完教程再拍卡密使用，如需少量测试建议购买 3 元卡密。卡密价格对应其余额，
+        请提前看完教程再拍卡密使用，卡密价格对应其余额，如需少量测试建议购买 3 元卡密。
         <br className="hidden md:block" />
         高级卡密自动激活永久会员，后续充值享 9 折优惠。
       </p>
