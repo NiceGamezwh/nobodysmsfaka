@@ -34,7 +34,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     contract: "0x50ffFc85D98c65e6CFf8cF4F19fe26717A5f50bB",
     desc: "少量测试首选，卡密价格即账户余额",
     accent: "#888888",
-    features: ["链上唯一卡密", "付款即时发放", "永久有效", "适合先行测试", "后续无法充值", "无对接码密钥"],
+    features: ["卡密价格对应其账户余额","链上唯一卡密", "付款即时发放", "永久有效", "适合先行测试", "后续无法充值", "无对接码密钥"],
   },
   "15": {
     tier: "15",
@@ -43,7 +43,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     contract: "0x7AB6dc1bE49C133cd3be5F55BcfADE21a62088AD",
     desc: "常用之选，余额更充足",
     accent: "#F5F5F0",
-    features: ["链上唯一卡密", "付款即时发放", "永久有效", "优先出库", "后续无法充值", "无对接码密钥"],
+    features: ["卡密价格对应其账户余额","链上唯一卡密", "付款即时发放", "永久有效", "优先出库", "后续无法充值", "无对接码密钥"],
   },
   "30": {
     tier: "30",
@@ -58,6 +58,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     featured: true,
     features: [
       "自动激活永久会员",
+      "卡密价格对应其账户余额",
       "后续充值永久享 9 折优惠",
       "邀请返利：下级消费 5% 返还",
       "新功能优先体验 & 专属定制服务",
