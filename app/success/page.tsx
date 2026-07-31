@@ -195,7 +195,7 @@ function SuccessInner() {
             <div className="flex items-start gap-3 px-4 py-3 bg-[#141200] border border-[#3D3600]">
               <span className="font-ibm-mono text-[14px] text-[#FFD600] shrink-0 leading-none mt-[2px]">!</span>
               <span className="font-ibm-mono text-[11px] text-[#A0A09A] tracking-[0.5px] leading-relaxed">
-                请立即复制并妥善保存。复制成功后，普通卡密为「账号----密码」格式，会员卡密为「账号----密码----对接码密钥」。
+                请立即复制并妥善保存。复制成功后，普通卡密为「账号----密码」格式，会员卡密为「账号----密码----对接码密钥」格式。
               </span>
             </div>
           </div>
