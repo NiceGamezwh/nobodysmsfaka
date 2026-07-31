@@ -1,7 +1,49 @@
 // 支付FM 接口封装（仅服务端使用，包含接入密钥）
 import crypto from "crypto";
 
-const API_ROOT = "https://api-54kn0m8dooow.zhifu.fm.it88168.com/api";
+// 接口根地址。支付FM 的网关是「轮换域名」，会不定期更换（官方文档设有「域名说明公告」）。
+// 一旦域名失效，服务端 fetch 会抛出 "fetch failed"（DNS/连接失败）。
+// 因此这里支持用环境变量 ZHIFU_API_ROOT 覆盖，域名更换时无需改代码即可切换。
+const DEFAULT_API_ROOT = "https://api-54kn0m8dooow.zhifu.fm.it88168.com/api";
+function getApiRoot(): string {
+  return (process.env.ZHIFU_API_ROOT || DEFAULT_API_ROOT).replace(/\/+$/, "");
+}
+
+/**
+ * 带超时与自动重试的 fetch。
+ * 支付网关节点偶发抖动会让 Node 的 fetch 抛 "fetch failed"，
+ * 这里对这类瞬时网络错误重试若干次，避免用户下单时随机失败。
+ */
+async function fetchWithRetry(
+  url: string,
+  init: RequestInit,
+  opts: { retries?: number; timeoutMs?: number } = {},
+): Promise<Response> {
+  const retries = opts.retries ?? 2; // 首次 + 2 次重试 = 最多 3 次
+  const timeoutMs = opts.timeoutMs ?? 15000;
+  let lastErr: unknown;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const ac = new AbortController();
+    const timer = setTimeout(() => ac.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, { ...init, signal: ac.signal, cache: "no-store" });
+      clearTimeout(timer);
+      return res;
+    } catch (err) {
+      clearTimeout(timer);
+      lastErr = err;
+      console.log(
+        `[v0] 支付网关请求失败（第 ${attempt + 1}/${retries + 1} 次）:`,
+        (err as Error)?.message,
+      );
+      // 最后一次不再等待
+      if (attempt < retries) {
+        await new Promise((r) => setTimeout(r, 500 * (attempt + 1)));
+      }
+    }
+  }
+  throw lastErr instanceof Error ? lastErr : new Error("支付网关请求失败");
+}
 
 // 硬编码的商户凭证（应用户要求）。如需覆盖可设置同名环境变量。
 const MERCHANT_NUM = "674829285504466944";
@@ -114,11 +156,20 @@ export async function createOrder(opts: {
     returnType: "json",
   });
 
-  const res = await fetch(`${API_ROOT}/startOrder`, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: params.toString(),
-  });
+  let res: Response;
+  try {
+    res = await fetchWithRetry(`${getApiRoot()}/startOrder`, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params.toString(),
+    });
+  } catch (err: any) {
+    console.log("[v0] createOrder 连接支付网关失败:", err?.message);
+    return {
+      success: false,
+      msg: "连接支付网关失败，请稍后重试（若持续失败，可能是支付FM网关域名已更换，需更新 ZHIFU_API_ROOT）",
+    };
+  }
 
   let data: any = null;
   try {
@@ -152,11 +203,17 @@ export async function queryOutOrder(orderNo: string): Promise<QueryOrderResult> 
 
   const params = new URLSearchParams({ merchantNum, orderNo, sign });
 
-  const res = await fetch(`${API_ROOT}/queryOutOrder`, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: params.toString(),
-  });
+  let res: Response;
+  try {
+    res = await fetchWithRetry(`${getApiRoot()}/queryOutOrder`, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params.toString(),
+    });
+  } catch (err: any) {
+    console.log("[v0] queryOutOrder 连接支付网关失败:", err?.message);
+    return { paid: false, msg: "连接支付网关失败" };
+  }
 
   let data: any = null;
   try {
