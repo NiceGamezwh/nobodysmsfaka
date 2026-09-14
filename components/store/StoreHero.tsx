@@ -34,7 +34,7 @@ export default function StoreHero() {
       <p className="font-ibm-mono text-[13px] md:text-[15px] text-[#888888] tracking-[1px] leading-[1.7] text-center w-full max-w-[720px] text-pretty">
         请提前看完教程再拍卡密使用，卡密价格对应其余额，如需少量测试建议购买 3 元卡密。
         <br className="hidden md:block" />
-        高级卡密自动激活永久会员，后续充值享 9 折优惠。
+        因上游卡商要求，对接必须满足账户历史充值总额大于等于30，因此3元和15元卡密无法对接。如需对接请购买30元卡密，另赠送永久会员资格。
       </p>
 
       <div className="h-10 md:h-[48px]" />
