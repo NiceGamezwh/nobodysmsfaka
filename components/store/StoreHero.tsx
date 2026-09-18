@@ -32,13 +32,13 @@ export default function StoreHero() {
 
       {/* 副标题 */}
       <p className="font-ibm-mono text-[13px] md:text-[15px] text-[#888888] tracking-[1px] leading-[1.7] text-center w-full max-w-[720px] text-pretty">
-        请提前看完教程再拍卡密使用，卡密价格对应其余额，如需少量测试建议购买 3 元卡密。
+        没有看完教程的请勿购买，售出不退，卡密价格对应其余额，如需少量测试建议购买 3 元卡密。
         <br className="hidden md:block" />
         应卡商要求，专属对接必须满足账户历史充值总额大于等于30，因此3元和15元卡密无法对接。
         <br className="hidden md:block" />
-        如需对接请购买30元卡密，直接赠送永久会员资格。
+        如需对接可购买30元卡密，直接赠送会员资格。
         <br className="hidden md:block" />
-        普通卡密如果历史充值大于30元，或找客服充值补满30元后，即可赠送永久会员资格
+        普通卡密如果历史充值大于30元，找客服领取会员资格
       </p>
 
       <div className="h-10 md:h-[48px]" />
