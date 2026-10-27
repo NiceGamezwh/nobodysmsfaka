@@ -20,6 +20,7 @@ function CopyField({
   value: string;
   hint?: string;
 }) {
+  const [copied, setCopied] = useState(false);
   async function copy() {
     try {
       await navigator.clipboard.writeText(value);
