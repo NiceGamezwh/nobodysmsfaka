@@ -1,6 +1,6 @@
 // 商品档位配置（客户端与服务端共享，不含任何密钥）
 // 每个档位对应一个链上卡密合约（Sepolia 测试网）
-// 三种面值共用同一种卡密类型：API账号----API密码（MemberCardQueue）
+// 三种面值共用同一种卡密类型：账号----密码（MemberCardQueue）
 
 export type Tier = "3" | "15" | "30";
 
@@ -20,7 +20,7 @@ export interface Product {
   featured?: boolean;
   /**
    * 是否使用 MemberCardQueue（getNextCard / CardTaken）。
-   * 全档位均为 true：卡密格式 API账号----API密码，合约按完整字符串存储。
+   * 全档位均为 true：卡密格式 账号----密码，合约按完整字符串存储。
    */
   member?: boolean;
   features: string[];
@@ -35,7 +35,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     member: true,
     desc: "少量测试首选，卡密价格即账户余额",
     accent: "#888888",
-    features: ["链上唯一卡密", "API账号+密码", "付款即时发放", "永久有效", "适合先行测试"],
+    features: ["链上唯一卡密", "账号+密码", "付款即时发放", "永久有效", "适合先行测试"],
   },
   "15": {
     tier: "15",
@@ -45,7 +45,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     member: true,
     desc: "常用之选，余额更充足",
     accent: "#F5F5F0",
-    features: ["链上唯一卡密", "API账号+密码", "付款即时发放", "永久有效", "优先出库"],
+    features: ["链上唯一卡密", "账号+密码", "付款即时发放", "永久有效", "优先出库"],
   },
   "30": {
     tier: "30",
@@ -56,7 +56,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     desc: "高面值卡密，余额更充足",
     accent: "#FFD600",
     featured: true,
-    features: ["链上唯一卡密", "API账号+密码", "付款即时发放", "永久有效", "高面值优先"],
+    features: ["链上唯一卡密", "账号+密码", "付款即时发放", "永久有效", "高面值优先"],
   },
 };
 

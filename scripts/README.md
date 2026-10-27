@@ -9,7 +9,7 @@
 Create a text file (one full card per line), format:
 
 ```
-API账号----API密码
+账号----密码
 ```
 
 Then:

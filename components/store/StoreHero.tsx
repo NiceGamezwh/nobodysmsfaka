@@ -32,9 +32,31 @@ export default function StoreHero() {
 
       {/* 副标题 */}
       <p className="font-ibm-mono text-[13px] md:text-[15px] text-[#888888] tracking-[1px] leading-[1.7] text-center w-full max-w-[720px] text-pretty">
-        没有看完教程的请勿购买，售出不退。卡密价格对应其余额；三种面值均为同一种「API账号+密码」卡密，付款后链上即时发放。
+        没有看完教程的请勿购买，售出不退。卡密价格对应其余额；三种面值均为「账号+密码」卡密，付款后自动发放。
         <br className="hidden md:block" />
-        如需少量测试建议购买 3 元卡密。更多介绍稍后补充。
+        第一次用或少量测试建议购买 3 元卡密。
+      </p>
+
+      <div className="h-5 md:h-6" />
+
+      <p className="font-ibm-mono text-[12px] md:text-[13px] text-[#888888] tracking-[1px] leading-[1.7] text-center w-full max-w-[720px]">
+        <a
+          href="https://www.yuque.com/nobodysms/xlypsu"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#FFD600] hover:underline"
+        >
+          官方教程
+        </a>
+        <span className="text-[#555] mx-3">·</span>
+        <a
+          href="https://nobodysms.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#FFD600] hover:underline"
+        >
+          官网
+        </a>
       </p>
 
       <div className="h-10 md:h-[48px]" />
