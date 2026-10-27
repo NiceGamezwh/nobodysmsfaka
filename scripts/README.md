@@ -1,7 +1,8 @@
 # Deploy / stock tools (Sepolia)
 
 - `compile-member-queue.mjs` — compile `contracts/MemberCardQueue.sol`
-- `deploy-member-queues.mjs` — deploy three queues (tiers 3/15/30); writes `contracts/deployed-sepolia.json`
+- `deploy-member-queues.mjs` — deploy three **注册** queues (tiers 3/15/30); writes `contracts/deployed-sepolia.json`
+- `deploy-recharge-queues.mjs` — deploy three **充值** queues (tiers r15/r30/r60); writes `contracts/deployed-recharge-sepolia.json`
 - `add-cards.mjs` — owner `addCards` for a given contract
 
 ## Stock cards

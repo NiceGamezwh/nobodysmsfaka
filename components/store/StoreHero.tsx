@@ -32,9 +32,9 @@ export default function StoreHero() {
 
       {/* 副标题 */}
       <p className="font-ibm-mono text-[13px] md:text-[15px] text-[#888888] tracking-[1px] leading-[1.7] text-center w-full max-w-[720px] text-pretty">
-        没有看完教程的请勿购买，售出不退。卡密价格对应其余额；三种面值均为「账号+密码」卡密，付款后自动发放。
+        没有看完教程的请勿购买，售出不退。提供注册卡密（账号----密码）与充值卡密（单码）两类；付款后自动发放。
         <br className="hidden md:block" />
-        第一次用或少量测试建议购买 3 元卡密。
+        第一次用或少量测试建议购买 3 元注册卡密。
       </p>
 
       <div className="h-5 md:h-6" />

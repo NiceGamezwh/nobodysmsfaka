@@ -1,0 +1,62 @@
+{
+  "network": "sepolia",
+  "chainId": 11155111,
+  "contract": "MemberCardQueue",
+  "deployer": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764",
+  "updatedAt": "2026-10-27T15:49:39.519Z",
+  "register": [
+    {
+      "tier": "3",
+      "amount": "3.00",
+      "contractAddress": "0xE482CC61DF0dBca6AB3A694a8813Bacf13A04976",
+      "deployTx": "0x5009c4a62c098b7ec0456edbd6699249b8e98fe88667b13ba0be25d13e7e8e55",
+      "blockNumber": 12005416,
+      "owner": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764"
+    },
+    {
+      "tier": "15",
+      "amount": "15.00",
+      "contractAddress": "0x4F3C14b4cFC5D3a27B00FF737Eab28D948517c9e",
+      "deployTx": "0xa69ac3632647549efc30737100c71d9f01357702a52bd9e4b3febe4d423a6209",
+      "blockNumber": 12005418,
+      "owner": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764"
+    },
+    {
+      "tier": "30",
+      "amount": "30.00",
+      "contractAddress": "0xFC76E223573BC92F24a2A956cd6f771D1059de6d",
+      "deployTx": "0xe5797f49a88890b5e185ea2653e34b6c4dbedb21f15385f5d304289e01283a2e",
+      "blockNumber": 12005419,
+      "owner": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764"
+    }
+  ],
+  "recharge": [
+    {
+      "kind": "recharge",
+      "tier": "r15",
+      "amount": "15.00",
+      "contractAddress": "0x4668114059aF15AC701045AD311DFa974370Ef0e",
+      "deployTx": "0xea4c0be623a75e9f521c9d4725e886022e950e7256367dafe1865df123fa86c7",
+      "blockNumber": 12006129,
+      "owner": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764"
+    },
+    {
+      "kind": "recharge",
+      "tier": "r30",
+      "amount": "30.00",
+      "contractAddress": "0x0785Bf86A9B9869940F4F605c58386a4BFD0E1CB",
+      "deployTx": "0x14ac95b5a469180894cbfcdb5bf1b777b31892f36253aa81b4e24ae53a7f422e",
+      "blockNumber": 12006130,
+      "owner": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764"
+    },
+    {
+      "kind": "recharge",
+      "tier": "r60",
+      "amount": "60.00",
+      "contractAddress": "0x9aCDfa778ED64AB2D1297FB735862ebdEC97Bc12",
+      "deployTx": "0xceea7bdfcc5f88419a47cf0ebade377829e68efa5657ce45f4a092bb64140d6f",
+      "blockNumber": 12006131,
+      "owner": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764"
+    }
+  ]
+}

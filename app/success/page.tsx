@@ -2,7 +2,7 @@
 
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { getProduct } from "@/lib/products";
+import { displayYuan, getProduct } from "@/lib/products";
 
 type Status = "idle" | "loading" | "confirming" | "success" | "unpaid" | "error";
 
@@ -51,15 +51,19 @@ function CopyField({
 }
 
 function KamiParts({ kami }: { kami: string }) {
-  // 账号----密码（仅四个短横分隔两段）
-  const [account, password] = kami.split("----");
-  if (!password) {
-    return <span className="font-ibm-mono text-[12px] text-[#F5F5F0] break-all">{kami}</span>;
+  // 注册卡密：账号----密码；充值卡密：无 ---- 的单码
+  if (kami.includes("----")) {
+    const [account, password] = kami.split("----");
+    return (
+      <div className="flex flex-col gap-4">
+        <CopyField label="账号" value={account} />
+        <CopyField label="密码" value={password || ""} />
+      </div>
+    );
   }
   return (
     <div className="flex flex-col gap-4">
-      <CopyField label="账号" value={account} />
-      <CopyField label="密码" value={password} />
+      <CopyField label="充值卡密" value={kami} />
     </div>
   );
 }
@@ -173,7 +177,7 @@ function SuccessInner() {
 
         {product && (
           <p className="font-ibm-mono text-[12px] text-[#888] tracking-[1px]">
-            商品：{product.name} · ¥{product.tier}
+            商品：{product.name} · ¥{displayYuan(product)}
           </p>
         )}
 
@@ -204,7 +208,9 @@ function SuccessInner() {
             <div className="flex items-start gap-3 px-4 py-3 bg-[#141200] border border-[#3D3600]">
               <span className="font-ibm-mono text-[14px] text-[#FFD600] shrink-0 leading-none mt-[2px]">!</span>
               <span className="font-ibm-mono text-[11px] text-[#A0A09A] tracking-[0.5px] leading-relaxed">
-                请立即分别复制账号和密码并妥善保存。
+                {kami.includes("----")
+                  ? "请立即分别复制账号和密码并妥善保存。"
+                  : "请立即复制充值卡密并妥善保存。"}
               </span>
             </div>
           </div>

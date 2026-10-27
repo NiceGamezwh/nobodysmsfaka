@@ -1,0 +1,37 @@
+{
+  "network": "sepolia",
+  "chainId": 11155111,
+  "contract": "MemberCardQueue",
+  "kind": "recharge",
+  "deployer": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764",
+  "deployedAt": "2026-10-27T15:49:39.519Z",
+  "deployments": [
+    {
+      "kind": "recharge",
+      "tier": "r15",
+      "amount": "15.00",
+      "contractAddress": "0x4668114059aF15AC701045AD311DFa974370Ef0e",
+      "deployTx": "0xea4c0be623a75e9f521c9d4725e886022e950e7256367dafe1865df123fa86c7",
+      "blockNumber": 12006129,
+      "owner": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764"
+    },
+    {
+      "kind": "recharge",
+      "tier": "r30",
+      "amount": "30.00",
+      "contractAddress": "0x0785Bf86A9B9869940F4F605c58386a4BFD0E1CB",
+      "deployTx": "0x14ac95b5a469180894cbfcdb5bf1b777b31892f36253aa81b4e24ae53a7f422e",
+      "blockNumber": 12006130,
+      "owner": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764"
+    },
+    {
+      "kind": "recharge",
+      "tier": "r60",
+      "amount": "60.00",
+      "contractAddress": "0x9aCDfa778ED64AB2D1297FB735862ebdEC97Bc12",
+      "deployTx": "0xceea7bdfcc5f88419a47cf0ebade377829e68efa5657ce45f4a092bb64140d6f",
+      "blockNumber": 12006131,
+      "owner": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764"
+    }
+  ]
+}

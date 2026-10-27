@@ -6,7 +6,7 @@ import SectionHeader from "@/components/SectionHeader";
 const FAQS = [
   {
     q: "卡密是什么格式？",
-    a: "统一为「账号----密码」格式，卡密永久有效",
+    a: "注册卡密为「账号----密码」；充值卡密为单码（无分隔符）。卡密永久有效。",
   },
   {
     q: "支付后多久能拿到卡密？",
