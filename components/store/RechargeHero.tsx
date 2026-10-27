@@ -24,7 +24,7 @@ export default function RechargeHero() {
         <GlitchText text="账户充值" speed={70} delay={100} />
       </h1>
       <h1 className="font-grotesk text-[clamp(32px,9vw,88px)] font-bold text-[#7EC8E3] tracking-[-1px] leading-none text-center w-full max-w-[1000px]">
-        <GlitchText text="单码即到账" speed={70} delay={500} />
+        <GlitchText text="付款即到账" speed={70} delay={500} />
       </h1>
 
       <div className="h-8 md:h-[32px]" />
@@ -32,7 +32,7 @@ export default function RechargeHero() {
       <p className="font-ibm-mono text-[13px] md:text-[15px] text-[#888888] tracking-[1px] leading-[1.7] text-center w-full max-w-[720px] text-pretty">
         没有看完教程的请勿购买，售出不退。充值卡密为单码格式，面额对应充值金额；付款后自动发放。
         <br className="hidden md:block" />
-        本页仅售充值卡密（¥15 / ¥30 / ¥60）。注册账号请回主页购买注册卡密。
+        本页仅售充值卡密（¥15 / ¥30 / ¥60）。尽量用多少充多少，避免余额闲置。
       </p>
 
       <div className="h-5 md:h-6" />

@@ -49,7 +49,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     member: true,
     desc: "少量测试首选，卡密价格即账户余额",
     accent: "#888888",
-    features: ["链上唯一卡密", "账号+密码", "付款即时发放", "永久有效", "适合先行测试"],
+    features: ["链上唯一卡密", "账号+密码", "付款即时发放", "永久有效", "适合先行测试", "3元余额账号"],
   },
   "15": {
     tier: "15",
@@ -60,7 +60,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     member: true,
     desc: "常用之选，余额更充足",
     accent: "#F5F5F0",
-    features: ["链上唯一卡密", "账号+密码", "付款即时发放", "永久有效", "优先出库"],
+    features: ["链上唯一卡密", "账号+密码", "付款即时发放", "永久有效", "优先出库", "15元余额账号"],
   },
   "30": {
     tier: "30",
@@ -72,7 +72,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     desc: "高面值卡密，余额更充足",
     accent: "#FFD600",
     featured: true,
-    features: ["链上唯一卡密", "账号+密码", "付款即时发放", "永久有效", "高面值优先"],
+    features: ["链上唯一卡密", "账号+密码", "付款即时发放", "永久有效", "高面值优先", "30元余额账号"],
   },
   r15: {
     tier: "r15",
@@ -83,7 +83,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     member: true,
     desc: "单码充值，付款后即时发放",
     accent: "#7EC8E3",
-    features: ["链上唯一卡密", "单码充值", "付款即时发放", "永久有效"],
+    features: ["链上唯一卡密", "单码充值", "付款即时发放", "永久有效", "15元充值卡密"],
   },
   r30: {
     tier: "r30",
@@ -95,7 +95,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     desc: "单码充值，余额更充足",
     accent: "#A8E6CF",
     featured: true,
-    features: ["链上唯一卡密", "单码充值", "付款即时发放", "永久有效"],
+    features: ["链上唯一卡密", "单码充值", "付款即时发放", "永久有效", "30元充值卡密"],
   },
   r60: {
     tier: "r60",
@@ -106,7 +106,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     member: true,
     desc: "高面值单码充值",
     accent: "#FFB347",
-    features: ["链上唯一卡密", "单码充值", "付款即时发放", "永久有效"],
+    features: ["链上唯一卡密", "单码充值", "付款即时发放", "永久有效", "60元充值卡密"],
   },
 };
 
