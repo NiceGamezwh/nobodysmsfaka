@@ -1,5 +1,6 @@
 // 商品档位配置（客户端与服务端共享，不含任何密钥）
 // 每个档位对应一个链上卡密合约（Sepolia 测试网）
+// 三种面值共用同一种卡密类型：API账号----API密码---安全密码（MemberCardQueue）
 
 export type Tier = "3" | "15" | "30";
 
@@ -18,9 +19,8 @@ export interface Product {
   /** 是否高亮推荐 */
   featured?: boolean;
   /**
-   * 是否为会员卡密（三段式：账号----密码----对接码密钥）。
-   * 会员卡密使用 MemberCardQueue 合约（getNextCard / CardTaken），
-   * 普通卡密使用原合约（getKami / KamiClaimed）。
+   * 是否使用 MemberCardQueue（getNextCard / CardTaken）。
+   * 全档位均为 true：卡密格式 API账号----API密码---安全密码，合约按完整字符串存储。
    */
   member?: boolean;
   features: string[];
@@ -31,39 +31,32 @@ export const PRODUCTS: Record<Tier, Product> = {
     tier: "3",
     name: "入门卡密",
     amount: "3.00",
-    contract: "0x50ffFc85D98c65e6CFf8cF4F19fe26717A5f50bB",
+    contract: "0xFd2d0EaEe67C0393f5218b8045824072f3727bAd",
+    member: true,
     desc: "少量测试首选，卡密价格即账户余额",
     accent: "#888888",
-    features: ["卡密价格对应其账户余额","链上唯一卡密", "付款即时发放", "永久有效", "适合先行测试", "无对接码密钥"],
+    features: ["链上唯一卡密", "API账密+安全码", "付款即时发放", "永久有效", "适合先行测试"],
   },
   "15": {
     tier: "15",
     name: "标准卡密",
     amount: "15.00",
-    contract: "0x7AB6dc1bE49C133cd3be5F55BcfADE21a62088AD",
+    contract: "0xB482054498Fd24B8D55eB6A9AA26fA4fb18eAE85",
+    member: true,
     desc: "常用之选，余额更充足",
     accent: "#F5F5F0",
-    features: ["卡密价格对应其账户余额","链上唯一卡密", "付款即时发放", "永久有效", "优先出库", "无对接码密钥"],
+    features: ["链上唯一卡密", "API账密+安全码", "付款即时发放", "永久有效", "优先出库"],
   },
   "30": {
     tier: "30",
     name: "高级卡密",
     amount: "30.00",
-    // MemberCardQueue（会员卡密队列）合约，三段式：账号----密码----对接码密钥。
-    // 旧合约 0xccab3fFbFB420B2F5B7ac4633946ef1A0F710696 已弃用（仅两段式，无对接码密钥）。
-    contract: "0xD33FA1B603B3e4c14EAcf63b0D78eA6FA0fA3754",
+    contract: "0x9c06E39BE91e348dbCAc3A9338fC7c1E002A54A3",
     member: true,
-    desc: "自动激活永久会员，尊享专属权益",
+    desc: "高面值卡密，余额更充足",
     accent: "#FFD600",
     featured: true,
-    features: [
-      "自动激活永久会员",
-      "卡密价格对应其账户余额",
-      "后续充值永久享 6-9 折优惠",
-      "邀请返利：下级消费 5% 返还",
-      "新功能优先体验 & 专属定制服务",
-      "赠送专属对接码密钥",
-    ],
+    features: ["链上唯一卡密", "API账密+安全码", "付款即时发放", "永久有效", "高面值优先"],
   },
 };
 

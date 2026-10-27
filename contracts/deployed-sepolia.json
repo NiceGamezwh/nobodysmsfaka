@@ -1,0 +1,33 @@
+{
+  "network": "sepolia",
+  "chainId": 11155111,
+  "contract": "MemberCardQueue",
+  "deployer": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764",
+  "deployedAt": "2026-10-27T12:02:13.857Z",
+  "deployments": [
+    {
+      "tier": "3",
+      "amount": "3.00",
+      "contractAddress": "0xFd2d0EaEe67C0393f5218b8045824072f3727bAd",
+      "deployTx": "0xa2f0cb9e0e3882d448a0695676fa5dbf6576fbc74ead39789186a5ce2a75ef0f",
+      "blockNumber": 12004992,
+      "owner": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764"
+    },
+    {
+      "tier": "15",
+      "amount": "15.00",
+      "contractAddress": "0xB482054498Fd24B8D55eB6A9AA26fA4fb18eAE85",
+      "deployTx": "0xe1dc299c3b45ce3e545381edb9c439148f5d81fa3c737180bb1dc0e94c0ac7fe",
+      "blockNumber": 12004993,
+      "owner": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764"
+    },
+    {
+      "tier": "30",
+      "amount": "30.00",
+      "contractAddress": "0x9c06E39BE91e348dbCAc3A9338fC7c1E002A54A3",
+      "deployTx": "0xba1e1e1c0b7d031abdad617421068fedc561207166d1aa90094eede5028e2d57",
+      "blockNumber": 12004994,
+      "owner": "0xEfce7092589CA8Bcb2BdF412Fd2bD2d0Af30C764"
+    }
+  ]
+}

@@ -6,16 +6,15 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 /**
  * @title MemberCardQueue
- * @notice 会员卡密队列合约（支持带对接码密钥的三段式卡密）
- * 卡密格式示例：
- * hash1----hash2----PHPSESSID=xxx; sl-session=yyy
+ * @notice 卡密队列合约（一次取出、管理员上库存）
+ * 卡密格式示例（合约按完整字符串存储，不解析分隔符）：
+ * API账号----API密码---安全密码
+ * e.g. d8f87f…----37395f…---x0fahGpF1cR13S
  *
- * 与普通卡密合约的区别：卡密字符串多了第三段「对接码密钥」，
- * 合约本身只按完整字符串存储，前端/后端负责按 ---- 分割。
- * 核心逻辑（队列 + 只能取一次）保持一致。
+ * 核心逻辑：队列 + 只能取一次。
  */
 contract MemberCardQueue is Ownable, ReentrancyGuard {
-    // 完整卡密字符串数组（包含对接码密钥）
+    // 完整卡密字符串数组
     string[] private cards;
 
     // 下一个要取出的索引
@@ -31,8 +30,8 @@ contract MemberCardQueue is Ownable, ReentrancyGuard {
     constructor() Ownable(msg.sender) {}
 
     /**
-     * @notice 批量上新会员卡密（仅 Owner）
-     * @param newCards 完整卡密字符串数组（每个含对接码密钥）
+     * @notice 批量上新卡密（仅 Owner）
+     * @param newCards 完整卡密字符串数组
      */
     function addCards(string[] calldata newCards) external onlyOwner {
         require(newCards.length > 0, "Empty cards");
@@ -47,8 +46,8 @@ contract MemberCardQueue is Ownable, ReentrancyGuard {
     }
 
     /**
-     * @notice 取出下一个未使用的会员卡密（仅 Owner）
-     * @return card 完整卡密字符串（含对接码密钥）
+     * @notice 取出下一个未使用的卡密（仅 Owner）
+     * @return card 完整卡密字符串
      */
     function getNextCard() external onlyOwner nonReentrant returns (string memory) {
         require(nextIndex < cards.length, "No more cards available");

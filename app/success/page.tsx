@@ -12,26 +12,26 @@ const MAX_CONFIRM_ATTEMPTS = 15;
 const CONFIRM_INTERVAL_MS = 3000;
 
 function KamiParts({ kami }: { kami: string }) {
-  // 普通卡密两段式：账号----密码
-  // 会员卡密三段式：账号----密码----对接码密钥
-  const [account, password, dockingKey] = kami.split("----");
+  // 统一卡密：API账号----API密码---安全密码（账号/密码间四个短横，密码/安全码间三个短横）
+  const [account, rest] = kami.split("----");
+  const [password, security] = (rest || "").split("---");
   if (!password) {
     return <span className="font-ibm-mono text-[12px] text-[#F5F5F0] break-all">{kami}</span>;
   }
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col gap-1">
-        <span className="font-ibm-mono text-[10px] text-[#555] tracking-[2px]">账号</span>
+        <span className="font-ibm-mono text-[10px] text-[#555] tracking-[2px]">API账号</span>
         <span className="font-ibm-mono text-[12px] text-[#F5F5F0] break-all leading-relaxed">{account}</span>
       </div>
       <div className="flex flex-col gap-1">
-        <span className="font-ibm-mono text-[10px] text-[#555] tracking-[2px]">密码</span>
+        <span className="font-ibm-mono text-[10px] text-[#555] tracking-[2px]">API密码</span>
         <span className="font-ibm-mono text-[12px] text-[#F5F5F0] break-all leading-relaxed">{password}</span>
       </div>
-      {dockingKey && (
+      {security && (
         <div className="flex flex-col gap-1">
-          <span className="font-ibm-mono text-[10px] text-[#FFD600] tracking-[2px]">对接码密钥</span>
-          <span className="font-ibm-mono text-[12px] text-[#F5F5F0] break-all leading-relaxed">{dockingKey}</span>
+          <span className="font-ibm-mono text-[10px] text-[#FFD600] tracking-[2px]">安全密码</span>
+          <span className="font-ibm-mono text-[12px] text-[#F5F5F0] break-all leading-relaxed">{security}</span>
         </div>
       )}
     </div>
@@ -195,7 +195,7 @@ function SuccessInner() {
             <div className="flex items-start gap-3 px-4 py-3 bg-[#141200] border border-[#3D3600]">
               <span className="font-ibm-mono text-[14px] text-[#FFD600] shrink-0 leading-none mt-[2px]">!</span>
               <span className="font-ibm-mono text-[11px] text-[#A0A09A] tracking-[0.5px] leading-relaxed">
-                请立即复制并妥善保存。复制成功后，会员卡密为「账号----密码----对接码密钥」格式，普通卡密为「账号----密码」格式。
+                请立即复制并妥善保存。卡密格式为「API账号----API密码---安全密码」，整串复制即可。
               </span>
             </div>
           </div>

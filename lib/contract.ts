@@ -1,18 +1,19 @@
 // 链上卡密合约调用（仅服务端，使用管理员私钥）
 import { ethers } from "ethers";
 
-// 普通卡密合约（两段式：账号----密码）最小 ABI
+// 旧普通卡密合约（两段式）最小 ABI — 保留兼容，当前全档位已切到 MemberCardQueue
 export const KAMI_ABI = [
   "function getKami() external returns (string kami)",
   "function getUnusedCount() external view returns (uint256)",
   "event KamiClaimed(string kami, address indexed admin)",
 ];
 
-// 会员卡密合约 MemberCardQueue（三段式：账号----密码----对接码密钥）最小 ABI
+// MemberCardQueue（API账号----API密码---安全密码）最小 ABI
 export const MEMBER_ABI = [
   "function getNextCard() external returns (string)",
   "function remaining() external view returns (uint256)",
   "function total() external view returns (uint256)",
+  "function addCards(string[] calldata newCards) external",
   "event CardTaken(uint256 indexed index, string card)",
 ];
 
@@ -33,7 +34,7 @@ function getWallet(): ethers.Wallet {
 }
 
 /** 查询某个合约当前未使用的卡密数量 */
-export async function getUnusedCount(contractAddress: string, isMember = false): Promise<number> {
+export async function getUnusedCount(contractAddress: string, isMember = true): Promise<number> {
   const provider = getProvider();
   if (isMember) {
     const contract = new ethers.Contract(contractAddress, MEMBER_ABI, provider);
@@ -47,12 +48,11 @@ export async function getUnusedCount(contractAddress: string, isMember = false):
 
 /**
  * 从指定合约领取一个未使用的卡密。
- * - 普通卡密：调用 getKami()，从 KamiClaimed 事件解析卡密（两段式 账号----密码）。
- * - 会员卡密：调用 getNextCard()，从 CardTaken 事件解析卡密（三段式 账号----密码----对接码密钥）。
- * 两者的取卡函数都是状态变更函数：弹出一张并标记已用（合约层保证唯一），
- * 返回值无法通过交易回执直接拿到，因此统一从事件日志解析。
+ * 当前全档位使用 MemberCardQueue：调用 getNextCard()，从 CardTaken 事件解析完整卡密字符串
+ *（格式：API账号----API密码---安全密码，合约不解析分隔符）。
+ * isMember=false 时回退旧 getKami / KamiClaimed（兼容遗留合约）。
  */
-export async function claimKami(contractAddress: string, isMember = false): Promise<string> {
+export async function claimKami(contractAddress: string, isMember = true): Promise<string> {
   const wallet = getWallet();
   const abi = isMember ? MEMBER_ABI : KAMI_ABI;
   const contract = new ethers.Contract(contractAddress, abi, wallet);
@@ -61,7 +61,6 @@ export async function claimKami(contractAddress: string, isMember = false): Prom
   const receipt = await tx.wait();
 
   const eventName = isMember ? "CardTaken" : "KamiClaimed";
-  // 从事件日志解析卡密
   for (const log of receipt?.logs ?? []) {
     try {
       const parsed = contract.interface.parseLog(log);
