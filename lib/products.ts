@@ -14,8 +14,10 @@ export interface Product {
   kind: ProductKind;
   /** 展示名 */
   name: string;
-  /** 价格，单位：元，字符串形式（用于支付金额与签名，必须两位小数） */
+  /** 实付价格，单位：元，字符串形式（用于支付金额与签名，必须两位小数） */
   amount: string;
+  /** 划线原价 / 面额（元）。有值时展示折扣标与划线价 */
+  listAmount?: string;
   /** 卡密合约地址（Sepolia） */
   contract: string;
   /** 卖点描述 */
@@ -37,6 +39,22 @@ export function displayYuan(p: Pick<Product, "amount">): string {
   const n = Number(p.amount);
   if (!Number.isFinite(n)) return p.amount;
   return Number.isInteger(n) ? String(n) : String(n);
+}
+
+export function displayListYuan(p: Pick<Product, "listAmount">): string | null {
+  if (!p.listAmount) return null;
+  const n = Number(p.listAmount);
+  if (!Number.isFinite(n)) return p.listAmount;
+  return Number.isInteger(n) ? String(n) : String(n);
+}
+
+/** 优惠立减金额（元），无折扣时返回 null */
+export function discountSaveYuan(p: Pick<Product, "amount" | "listAmount">): number | null {
+  if (!p.listAmount) return null;
+  const list = Number(p.listAmount);
+  const sale = Number(p.amount);
+  if (!Number.isFinite(list) || !Number.isFinite(sale) || list <= sale) return null;
+  return Math.round((list - sale) * 100) / 100;
 }
 
 export const PRODUCTS: Record<Tier, Product> = {
@@ -79,6 +97,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     kind: "recharge",
     name: "充值卡密 面额¥15",
     amount: "14.00",
+    listAmount: "15.00",
     contract: "0x4668114059aF15AC701045AD311DFa974370Ef0e",
     member: true,
     desc: "单码充值，付款后即时发放",
@@ -90,6 +109,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     kind: "recharge",
     name: "充值卡密 面额¥30",
     amount: "27.00",
+    listAmount: "30.00",
     contract: "0x0785Bf86A9B9869940F4F605c58386a4BFD0E1CB",
     member: true,
     desc: "单码充值，余额更充足",
@@ -102,6 +122,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     kind: "recharge",
     name: "充值卡密 面额¥60",
     amount: "53.00",
+    listAmount: "60.00",
     contract: "0x9aCDfa778ED64AB2D1297FB735862ebdEC97Bc12",
     member: true,
     desc: "高面值单码充值",

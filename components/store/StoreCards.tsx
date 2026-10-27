@@ -7,6 +7,8 @@ import {
   REGISTER_TIERS,
   RECHARGE_TIERS,
   displayYuan,
+  displayListYuan,
+  discountSaveYuan,
   type Tier,
 } from "@/lib/products";
 import SectionHeader from "@/components/SectionHeader";
@@ -31,6 +33,8 @@ function ProductRow({
         const count = stock ? stock[tier] : undefined;
         const soldOut = count === 0;
         const yuan = displayYuan(p);
+        const listYuan = displayListYuan(p);
+        const save = discountSaveYuan(p);
         return (
           <div
             key={tier}
@@ -40,19 +44,28 @@ function ProductRow({
               border: `${featured ? 2 : 1}px solid ${featured ? "#FFD600" : "#2D2D2D"}`,
             }}
           >
-            <div
-              className="flex items-center justify-center h-[28px] px-[12px] w-fit"
-              style={{
-                backgroundColor: featured ? "#FFD600" : "#1A1A1A",
-                border: `1px solid ${featured ? "#FFD600" : "#3D3D3D"}`,
-              }}
-            >
-              <span
-                className="font-ibm-mono text-[11px] tracking-[2px]"
-                style={{ color: featured ? "#0A0A0A" : p.accent }}
+            <div className="flex items-center gap-2 flex-wrap">
+              <div
+                className="flex items-center justify-center h-[28px] px-[12px] w-fit"
+                style={{
+                  backgroundColor: featured ? "#FFD600" : "#1A1A1A",
+                  border: `1px solid ${featured ? "#FFD600" : "#3D3D3D"}`,
+                }}
               >
-                {featured ? "最受欢迎" : p.name.toUpperCase()}
-              </span>
+                <span
+                  className="font-ibm-mono text-[11px] tracking-[2px]"
+                  style={{ color: featured ? "#0A0A0A" : p.accent }}
+                >
+                  {featured ? "最受欢迎" : p.name.toUpperCase()}
+                </span>
+              </div>
+              {save != null && (
+                <div className="flex items-center justify-center h-[28px] px-[10px] w-fit bg-[#FF3B30] border border-[#FF3B30]">
+                  <span className="font-ibm-mono text-[11px] font-bold text-[#FFFFFF] tracking-[1px]">
+                    特惠 · 省¥{Number.isInteger(save) ? save : save}
+                  </span>
+                </div>
+              )}
             </div>
 
             <span
@@ -62,14 +75,26 @@ function ProductRow({
               {p.name}
             </span>
 
-            <div className="flex items-end gap-[6px]">
-              <span
-                className="font-grotesk text-[48px] font-bold tracking-[-2px] leading-none"
-                style={{ color: featured ? "#FFD600" : "#F5F5F0" }}
-              >
-                ¥{yuan}
-              </span>
-              <span className="font-ibm-mono text-[13px] text-[#555555] tracking-[1px] mb-[6px]">/ 张</span>
+            <div className="flex flex-col gap-2">
+              <div className="flex items-end gap-[8px] flex-wrap">
+                <span
+                  className="font-grotesk text-[48px] font-bold tracking-[-2px] leading-none"
+                  style={{ color: save != null ? "#FF3B30" : featured ? "#FFD600" : "#F5F5F0" }}
+                >
+                  ¥{yuan}
+                </span>
+                {listYuan && (
+                  <span className="font-ibm-mono text-[18px] text-[#666] tracking-[0.5px] mb-[8px] line-through decoration-[#666]">
+                    ¥{listYuan}
+                  </span>
+                )}
+                <span className="font-ibm-mono text-[13px] text-[#555555] tracking-[1px] mb-[6px]">/ 张</span>
+              </div>
+              {save != null && listYuan && (
+                <span className="font-ibm-mono text-[11px] text-[#FF6B35] tracking-[1px]">
+                  面额 ¥{listYuan} · 现价 ¥{yuan} · 立减 ¥{Number.isInteger(save) ? save : save}
+                </span>
+              )}
             </div>
 
             <p className="font-ibm-mono text-[12px] text-[#888888] tracking-[1px] leading-relaxed">
