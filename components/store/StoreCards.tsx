@@ -60,9 +60,9 @@ function ProductRow({
                 </span>
               </div>
               {save != null && (
-                <div className="flex items-center justify-center h-[28px] px-[10px] w-fit bg-[#FF3B30] border border-[#FF3B30]">
-                  <span className="font-ibm-mono text-[11px] font-bold text-[#FFFFFF] tracking-[1px]">
-                    特惠 · 省¥{Number.isInteger(save) ? save : save}
+                <div className="flex items-center justify-center h-[28px] px-[10px] w-fit bg-[#FFD600] border border-[#FFD600]">
+                  <span className="font-ibm-mono text-[11px] font-bold text-[#0A0A0A] tracking-[1px]">
+                    特惠 · 省¥{save}
                   </span>
                 </div>
               )}
@@ -79,7 +79,7 @@ function ProductRow({
               <div className="flex items-end gap-[8px] flex-wrap">
                 <span
                   className="font-grotesk text-[48px] font-bold tracking-[-2px] leading-none"
-                  style={{ color: save != null ? "#FF3B30" : featured ? "#FFD600" : "#F5F5F0" }}
+                  style={{ color: save != null ? "#FFD600" : featured ? "#FFD600" : "#F5F5F0" }}
                 >
                   ¥{yuan}
                 </span>
@@ -91,7 +91,7 @@ function ProductRow({
                 <span className="font-ibm-mono text-[13px] text-[#555555] tracking-[1px] mb-[6px]">/ 张</span>
               </div>
               {save != null && listYuan && (
-                <span className="font-ibm-mono text-[11px] text-[#FF6B35] tracking-[1px]">
+                <span className="font-ibm-mono text-[11px] text-[#FFD600] tracking-[1px]">
                   面额 ¥{listYuan} · 现价 ¥{yuan} · 立减 ¥{Number.isInteger(save) ? save : save}
                 </span>
               )}
