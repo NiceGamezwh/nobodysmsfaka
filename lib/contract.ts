@@ -8,7 +8,7 @@ export const KAMI_ABI = [
   "event KamiClaimed(string kami, address indexed admin)",
 ];
 
-// MemberCardQueue（API账号----API密码---安全密码）最小 ABI
+// MemberCardQueue（API账号----API密码）最小 ABI
 export const MEMBER_ABI = [
   "function getNextCard() external returns (string)",
   "function remaining() external view returns (uint256)",
@@ -49,7 +49,7 @@ export async function getUnusedCount(contractAddress: string, isMember = true): 
 /**
  * 从指定合约领取一个未使用的卡密。
  * 当前全档位使用 MemberCardQueue：调用 getNextCard()，从 CardTaken 事件解析完整卡密字符串
- *（格式：API账号----API密码---安全密码，合约不解析分隔符）。
+ *（格式：API账号----API密码，合约不解析分隔符）。
  * isMember=false 时回退旧 getKami / KamiClaimed（兼容遗留合约）。
  */
 export async function claimKami(contractAddress: string, isMember = true): Promise<string> {

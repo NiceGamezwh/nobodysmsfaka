@@ -4,7 +4,7 @@
  *   node scripts/add-cards.mjs <contractAddress> ./cards.txt
  *   node scripts/add-cards.mjs <contractAddress> --inline 'card1' 'card2'
  *
- * cards.txt: one full card string per line (API账号----API密码---安全密码).
+ * cards.txt: one full card string per line (API账号----API密码).
  * Reads DEPLOYER_PRIVATE_KEY + SEPOLIA_RPC_URL from scripts/.env.deploy
  * (or process env). Does not print card secrets.
  */

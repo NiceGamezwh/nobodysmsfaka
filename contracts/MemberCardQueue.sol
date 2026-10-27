@@ -8,8 +8,8 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
  * @title MemberCardQueue
  * @notice 卡密队列合约（一次取出、管理员上库存）
  * 卡密格式示例（合约按完整字符串存储，不解析分隔符）：
- * API账号----API密码---安全密码
- * e.g. d8f87f…----37395f…---x0fahGpF1cR13S
+ * API账号----API密码
+ * e.g. 9915c0db…----fcbbab9cefbe2c15…
  *
  * 核心逻辑：队列 + 只能取一次。
  */

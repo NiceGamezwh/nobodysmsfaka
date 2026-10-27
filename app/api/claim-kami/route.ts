@@ -92,7 +92,7 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ success: true, paid: true, kami: recheck });
       }
 
-      // 4. 链上领取唯一卡密（会员卡密走 MemberCardQueue 合约，返回三段式卡密）
+      // 4. 链上领取唯一卡密（会员卡密走 MemberCardQueue 合约，返回账号----密码）
       //    说明：支付平台会对金额做微调（如 30.00 → 29.97/30.01）用于订单识别，
       //    因此这里不再做金额等值校验，只要订单已支付成功即按 tier 发放对应卡密。
       const kami = await claimKami(product.contract, product.member === true);

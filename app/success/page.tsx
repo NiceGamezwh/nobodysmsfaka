@@ -51,9 +51,8 @@ function CopyField({
 }
 
 function KamiParts({ kami }: { kami: string }) {
-  // 账号----密码---安全码（账号/密码间四个短横，密码/安全码间三个短横）
-  const [account, rest] = kami.split("----");
-  const [password, security] = (rest || "").split("---");
+  // 账号----密码（仅四个短横分隔两段）
+  const [account, password] = kami.split("----");
   if (!password) {
     return <span className="font-ibm-mono text-[12px] text-[#F5F5F0] break-all">{kami}</span>;
   }
@@ -61,9 +60,6 @@ function KamiParts({ kami }: { kami: string }) {
     <div className="flex flex-col gap-4">
       <CopyField label="账号" value={account} />
       <CopyField label="密码" value={password} />
-      {security ? (
-        <CopyField label="安全码" value={security} hint="目前安全码还未投入使用，可忽略" />
-      ) : null}
     </div>
   );
 }
@@ -208,7 +204,7 @@ function SuccessInner() {
             <div className="flex items-start gap-3 px-4 py-3 bg-[#141200] border border-[#3D3600]">
               <span className="font-ibm-mono text-[14px] text-[#FFD600] shrink-0 leading-none mt-[2px]">!</span>
               <span className="font-ibm-mono text-[11px] text-[#A0A09A] tracking-[0.5px] leading-relaxed">
-                请立即分别复制账号和密码并妥善保存。安全码目前还未投入使用，可忽略。
+                请立即分别复制账号和密码并妥善保存。
               </span>
             </div>
           </div>
