@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   PRODUCTS,
   REGISTER_TIERS,
@@ -112,7 +113,7 @@ function ProductRow({
 
             <button
               onClick={() => onBuy(tier)}
-              disabled={isLoading}
+              disabled={isLoading || soldOut}
               className="flex items-center justify-center w-full h-[48px] mt-auto transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               style={{
                 backgroundColor: featured ? "#FFD600" : "#1A1A1A",
@@ -123,7 +124,7 @@ function ProductRow({
                 className="font-ibm-mono text-[12px] tracking-[2px]"
                 style={{ color: featured ? "#0A0A0A" : "#F5F5F0" }}
               >
-                {isLoading ? "创建订单中…" : "立即购买 >"}
+                {isLoading ? "创建订单中…" : soldOut ? "已售罄" : "立即购买 >"}
               </span>
             </button>
           </div>
@@ -133,7 +134,12 @@ function ProductRow({
   );
 }
 
-export default function StoreCards() {
+export default function StoreCards({
+  kind = "register",
+}: {
+  kind?: "register" | "recharge";
+}) {
+  const tiers = kind === "recharge" ? RECHARGE_TIERS : REGISTER_TIERS;
   const [loadingTier, setLoadingTier] = useState<Tier | null>(null);
   const [error, setError] = useState<string>("");
   const [stock, setStock] = useState<Record<string, number | null> | null>(null);
@@ -146,7 +152,7 @@ export default function StoreCards() {
         const data = await res.json();
         if (alive && data.success) setStock(data.stock);
       } catch {
-        // 库存拉取失败时静默，不阻塞购买
+        // ignore
       }
     }
     loadStock();
@@ -183,12 +189,17 @@ export default function StoreCards() {
     }
   }
 
+  const isRecharge = kind === "recharge";
+
   return (
     <section
       id="products"
       className="flex flex-col w-full bg-[#080808] py-16 px-6 md:py-[100px] md:px-[120px] gap-12 md:gap-[64px]"
     >
-      <SectionHeader label="[01] // 商品" title={"选择档位。\n即买即得。"} />
+      <SectionHeader
+        label={isRecharge ? "[01] // 充值卡密" : "[01] // 注册卡密"}
+        title={isRecharge ? "选择充值档位。\n付款即得单码。" : "选择注册档位。\n即买即得。"}
+      />
 
       {error && (
         <div className="flex items-center gap-3 px-4 py-3 bg-[#1A0F0F] border-2 border-[#FF6B35]">
@@ -197,37 +208,48 @@ export default function StoreCards() {
         </div>
       )}
 
-      <div className="flex flex-col gap-10 md:gap-14 w-full">
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <span className="w-[8px] h-[8px] bg-[#FFD600] shrink-0" />
-            <span className="font-ibm-mono text-[12px] text-[#FFD600] tracking-[2px]">
-              注册卡密 // 账号----密码 · ¥3 / ¥15 / ¥30
-            </span>
-          </div>
-          <ProductRow
-            tiers={REGISTER_TIERS}
-            stock={stock}
-            loadingTier={loadingTier}
-            onBuy={handleBuy}
+      <div className="flex flex-col gap-4 w-full">
+        <div className="flex items-center gap-3">
+          <span
+            className="w-[8px] h-[8px] shrink-0"
+            style={{ backgroundColor: isRecharge ? "#7EC8E3" : "#FFD600" }}
           />
+          <span
+            className="font-ibm-mono text-[12px] tracking-[2px]"
+            style={{ color: isRecharge ? "#7EC8E3" : "#FFD600" }}
+          >
+            {isRecharge
+              ? "充值卡密 // 单码 · ¥15 / ¥30 / ¥60"
+              : "注册卡密 // 账号----密码 · ¥3 / ¥15 / ¥30"}
+          </span>
         </div>
-
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <span className="w-[8px] h-[8px] bg-[#7EC8E3] shrink-0" />
-            <span className="font-ibm-mono text-[12px] text-[#7EC8E3] tracking-[2px]">
-              充值卡密 // 单码 · ¥15 / ¥30 / ¥60
-            </span>
-          </div>
-          <ProductRow
-            tiers={RECHARGE_TIERS}
-            stock={stock}
-            loadingTier={loadingTier}
-            onBuy={handleBuy}
-          />
-        </div>
+        <ProductRow
+          tiers={tiers}
+          stock={stock}
+          loadingTier={loadingTier}
+          onBuy={handleBuy}
+        />
       </div>
+
+      {!isRecharge && (
+        <Link
+          href="/recharge"
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full p-6 md:p-8 bg-[#0F0F0F] border border-[#2D2D2D] hover:border-[#7EC8E3] transition-colors no-underline"
+        >
+          <div className="flex flex-col gap-2">
+            <span className="font-ibm-mono text-[11px] text-[#7EC8E3] tracking-[2px]">充值卡密专区</span>
+            <span className="font-grotesk text-[18px] font-bold text-[#F5F5F0] tracking-[0.5px]">
+              需要给已有账号充值？前往充值卡密页
+            </span>
+            <span className="font-ibm-mono text-[12px] text-[#888] tracking-[0.5px]">
+              单码格式 · ¥15 / ¥30 / ¥60 · 付款后自动发放
+            </span>
+          </div>
+          <span className="font-ibm-mono text-[12px] text-[#7EC8E3] tracking-[2px] shrink-0">
+            进入 /recharge &gt;
+          </span>
+        </Link>
+      )}
 
       <p className="font-ibm-mono text-[11px] text-[#555555] tracking-[1px] leading-relaxed text-center">
         支付宝扫码支付 // 卡密由智能合约链上唯一发放 // 付款后自动跳转领取
