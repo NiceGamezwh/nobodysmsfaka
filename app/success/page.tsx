@@ -11,29 +11,58 @@ type Status = "idle" | "loading" | "confirming" | "success" | "unpaid" | "error"
 const MAX_CONFIRM_ATTEMPTS = 15;
 const CONFIRM_INTERVAL_MS = 3000;
 
+function CopyField({
+  label,
+  value,
+  hint,
+}: {
+  label: string;
+  value: string;
+  hint?: string;
+}) {
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {}
+  }
+  return (
+    <div className="flex flex-col gap-1.5">
+      <div className="flex items-center justify-between gap-3">
+        <span className="font-ibm-mono text-[10px] text-[#555] tracking-[2px]">{label}</span>
+        <button
+          type="button"
+          onClick={copy}
+          className="shrink-0 h-[28px] px-3 bg-[#1A1A1A] border border-[#3D3D3D] hover:border-[#FFD600] transition-colors cursor-pointer"
+        >
+          <span className="font-ibm-mono text-[10px] text-[#FFD600] tracking-[1px]">
+            {copied ? "已复制" : `复制${label}`}
+          </span>
+        </button>
+      </div>
+      <span className="font-ibm-mono text-[12px] text-[#F5F5F0] break-all leading-relaxed">{value}</span>
+      {hint && (
+        <span className="font-ibm-mono text-[10px] text-[#666] tracking-[0.5px] leading-relaxed">{hint}</span>
+      )}
+    </div>
+  );
+}
+
 function KamiParts({ kami }: { kami: string }) {
-  // 统一卡密：API账号----API密码---安全密码（账号/密码间四个短横，密码/安全码间三个短横）
+  // 账号----密码---安全码（账号/密码间四个短横，密码/安全码间三个短横）
   const [account, rest] = kami.split("----");
   const [password, security] = (rest || "").split("---");
   if (!password) {
     return <span className="font-ibm-mono text-[12px] text-[#F5F5F0] break-all">{kami}</span>;
   }
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex flex-col gap-1">
-        <span className="font-ibm-mono text-[10px] text-[#555] tracking-[2px]">API账号</span>
-        <span className="font-ibm-mono text-[12px] text-[#F5F5F0] break-all leading-relaxed">{account}</span>
-      </div>
-      <div className="flex flex-col gap-1">
-        <span className="font-ibm-mono text-[10px] text-[#555] tracking-[2px]">API密码</span>
-        <span className="font-ibm-mono text-[12px] text-[#F5F5F0] break-all leading-relaxed">{password}</span>
-      </div>
-      {security && (
-        <div className="flex flex-col gap-1">
-          <span className="font-ibm-mono text-[10px] text-[#FFD600] tracking-[2px]">安全密码</span>
-          <span className="font-ibm-mono text-[12px] text-[#F5F5F0] break-all leading-relaxed">{security}</span>
-        </div>
-      )}
+    <div className="flex flex-col gap-4">
+      <CopyField label="账号" value={account} />
+      <CopyField label="密码" value={password} />
+      {security ? (
+        <CopyField label="安全码" value={security} hint="目前安全码还未投入使用，可忽略" />
+      ) : null}
     </div>
   );
 }
@@ -48,7 +77,6 @@ function SuccessInner() {
   const [kami, setKami] = useState("");
   const [msg, setMsg] = useState("");
   const [diag, setDiag] = useState<string>("");
-  const [copied, setCopied] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const requested = useRef(false);
   const attemptRef = useRef(0);
@@ -131,14 +159,6 @@ function SuccessInner() {
     };
   }, []);
 
-  async function copyKami() {
-    try {
-      await navigator.clipboard.writeText(kami);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
-    } catch {}
-  }
-
   return (
     <div className="flex flex-col items-center w-full min-h-screen bg-[#0A0A0A] px-6 py-16 md:py-[100px]">
       <div className="w-full max-w-[640px] flex flex-col gap-8">
@@ -184,18 +204,10 @@ function SuccessInner() {
               <span className="font-ibm-mono text-[10px] text-[#FFD600] tracking-[2px]">你的卡密</span>
               <KamiParts kami={kami} />
             </div>
-            <button
-              onClick={copyKami}
-              className="flex items-center justify-center w-full h-[48px] bg-[#FFD600] hover:bg-[#e6c200] transition-colors cursor-pointer border-none"
-            >
-              <span className="font-ibm-mono text-[12px] font-bold text-[#0A0A0A] tracking-[2px]">
-                {copied ? "已复制到剪贴板" : "复制完整卡密"}
-              </span>
-            </button>
             <div className="flex items-start gap-3 px-4 py-3 bg-[#141200] border border-[#3D3600]">
               <span className="font-ibm-mono text-[14px] text-[#FFD600] shrink-0 leading-none mt-[2px]">!</span>
               <span className="font-ibm-mono text-[11px] text-[#A0A09A] tracking-[0.5px] leading-relaxed">
-                请立即复制并妥善保存。卡密格式为「API账号----API密码---安全密码」，整串复制即可。
+                请立即分别复制账号和密码并妥善保存。安全码目前还未投入使用，可忽略。
               </span>
             </div>
           </div>
