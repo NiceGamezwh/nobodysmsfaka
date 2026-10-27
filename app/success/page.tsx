@@ -50,20 +50,65 @@ function CopyField({
   );
 }
 
-function KamiParts({ kami }: { kami: string }) {
-  // 注册卡密：账号----密码；充值卡密：无 ---- 的单码
-  if (kami.includes("----")) {
-    const [account, password] = kami.split("----");
+/** 注册卡密按首个 ---- 或 --- 拆成账号/密码（兼容两种补货写法） */
+function splitRegisterKami(kami: string): { account: string; password: string; security?: string } | null {
+  const four = kami.indexOf("----");
+  if (four >= 0) {
+    const account = kami.slice(0, four);
+    const rest = kami.slice(four + 4);
+    const three = rest.indexOf("---");
+    if (three >= 0) {
+      return {
+        account,
+        password: rest.slice(0, three),
+        security: rest.slice(three + 3) || undefined,
+      };
+    }
+    return { account, password: rest };
+  }
+  const three = kami.indexOf("---");
+  if (three >= 0) {
+    return {
+      account: kami.slice(0, three),
+      password: kami.slice(three + 3),
+    };
+  }
+  return null;
+}
+
+function KamiParts({
+  kami,
+  kind,
+}: {
+  kami: string;
+  kind?: "register" | "recharge";
+}) {
+  // 充值档位：始终整串单码；注册档位：拆账号/密码分别复制
+  if (kind === "recharge") {
     return (
       <div className="flex flex-col gap-4">
-        <CopyField label="账号" value={account} />
-        <CopyField label="密码" value={password || ""} />
+        <CopyField label="充值卡密" value={kami} />
       </div>
     );
   }
+
+  const parts = splitRegisterKami(kami);
+  if (parts && parts.password) {
+    return (
+      <div className="flex flex-col gap-4">
+        <CopyField label="账号" value={parts.account} />
+        <CopyField label="密码" value={parts.password} />
+        {parts.security ? (
+          <CopyField label="安全码" value={parts.security} hint="目前安全码还未投入使用，可忽略" />
+        ) : null}
+      </div>
+    );
+  }
+
+  // 注册档但未识别到分隔符时仍整串展示，避免空白
   return (
     <div className="flex flex-col gap-4">
-      <CopyField label="充值卡密" value={kami} />
+      <CopyField label={kind === "register" ? "卡密" : "充值卡密"} value={kami} />
     </div>
   );
 }
@@ -203,14 +248,14 @@ function SuccessInner() {
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-4 p-6 md:p-8 bg-[#0F0F0F] border-2 border-[#FFD600]">
               <span className="font-ibm-mono text-[10px] text-[#FFD600] tracking-[2px]">你的卡密</span>
-              <KamiParts kami={kami} />
+              <KamiParts kami={kami} kind={product?.kind} />
             </div>
             <div className="flex items-start gap-3 px-4 py-3 bg-[#141200] border border-[#3D3600]">
               <span className="font-ibm-mono text-[14px] text-[#FFD600] shrink-0 leading-none mt-[2px]">!</span>
               <span className="font-ibm-mono text-[11px] text-[#A0A09A] tracking-[0.5px] leading-relaxed">
-                {kami.includes("----")
-                  ? "请立即分别复制账号和密码并妥善保存。"
-                  : "请立即复制充值卡密并妥善保存。"}
+                {product?.kind === "recharge"
+                  ? "请立即复制充值卡密并妥善保存。"
+                  : "请立即分别复制账号和密码并妥善保存。"}
               </span>
             </div>
           </div>
