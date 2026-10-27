@@ -223,7 +223,7 @@ export default function StoreCards({
     >
       <SectionHeader
         label={isRecharge ? "[01] // 充值卡密" : "[01] // 注册卡密"}
-        title={isRecharge ? "选择充值档位。\n付款即得单码。" : "选择注册档位。\n即买即得。"}
+        title={isRecharge ? "选择充值档位。\n付款即得单码。" : "注册专用卡密。\n¥0.1 防滥用。"}
       />
 
       {error && (
@@ -245,7 +245,7 @@ export default function StoreCards({
           >
             {isRecharge
               ? "充值卡密 // 单码 · 现价 ¥14 / ¥27 / ¥120（面额 15/30/150）"
-              : "注册卡密 // 账号----密码 · ¥3 / ¥15 / ¥30"}
+              : "注册专用 // 账号----密码 · ¥0.1（防恶意注册）"}
           </span>
         </div>
         <ProductRow

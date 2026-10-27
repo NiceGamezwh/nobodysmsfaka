@@ -3,8 +3,8 @@ import SectionHeader from "@/components/SectionHeader";
 const REGISTER_STEPS = [
   {
     no: "01",
-    title: "选择档位下单",
-    desc: "挑选注册卡密档位（¥3 / ¥15 / ¥30），点击购买后系统创建订单并生成支付宝支付链接。",
+    title: "购买注册卡密",
+    desc: "购买注册专用卡密（¥0.1，仅用于开户，防恶意注册），点击购买后系统创建订单并生成支付宝支付链接。",
   },
   {
     no: "02",

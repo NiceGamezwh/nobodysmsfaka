@@ -4,7 +4,7 @@
 
 export type ProductKind = "register" | "recharge";
 
-export type RegisterTier = "3" | "15" | "30";
+export type RegisterTier = "3";
 export type RechargeTier = "r15" | "r30" | "r60";
 export type Tier = RegisterTier | RechargeTier;
 
@@ -61,36 +61,21 @@ export const PRODUCTS: Record<Tier, Product> = {
   "3": {
     tier: "3",
     kind: "register",
-    name: "入门卡密",
-    amount: "3.00",
+    name: "注册专用卡密",
+    amount: "0.10",
     contract: "0xE482CC61DF0dBca6AB3A694a8813Bacf13A04976",
     member: true,
-    desc: "少量测试首选，卡密价格即账户余额",
-    accent: "#888888",
-    features: ["链上唯一卡密", "账号+密码", "付款即时发放", "永久有效", "适合先行测试", "3元余额账号"],
-  },
-  "15": {
-    tier: "15",
-    kind: "register",
-    name: "标准卡密",
-    amount: "15.00",
-    contract: "0x4F3C14b4cFC5D3a27B00FF737Eab28D948517c9e",
-    member: true,
-    desc: "常用之选，余额更充足",
-    accent: "#F5F5F0",
-    features: ["链上唯一卡密", "账号+密码", "付款即时发放", "永久有效", "优先出库", "15元余额账号"],
-  },
-  "30": {
-    tier: "30",
-    kind: "register",
-    name: "高级卡密",
-    amount: "30.00",
-    contract: "0xFC76E223573BC92F24a2A956cd6f771D1059de6d",
-    member: true,
-    desc: "高面值卡密，余额更充足",
-    accent: "#FFD600",
     featured: true,
-    features: ["链上唯一卡密", "账号+密码", "付款即时发放", "永久有效", "高面值优先", "30元余额账号"],
+    desc: "仅用于新账号注册；象征性收费，防止恶意批量注册",
+    accent: "#FFD600",
+    features: [
+      "注册专用",
+      "账号+密码",
+      "付款即时发放",
+      "链上唯一卡密",
+      "永久有效",
+      "¥0.1 防滥用",
+    ],
   },
   r15: {
     tier: "r15",
@@ -131,19 +116,12 @@ export const PRODUCTS: Record<Tier, Product> = {
   },
 };
 
-export const REGISTER_TIERS: RegisterTier[] = ["3", "15", "30"];
+export const REGISTER_TIERS: RegisterTier[] = ["3"];
 export const RECHARGE_TIERS: RechargeTier[] = ["r15", "r30", "r60"];
 export const TIER_LIST: Tier[] = [...REGISTER_TIERS, ...RECHARGE_TIERS];
 
 export function getProduct(tier: string): Product | null {
-  if (
-    tier === "3" ||
-    tier === "15" ||
-    tier === "30" ||
-    tier === "r15" ||
-    tier === "r30" ||
-    tier === "r60"
-  ) {
+  if (tier === "3" || tier === "r15" || tier === "r30" || tier === "r60") {
     return PRODUCTS[tier];
   }
   return null;
