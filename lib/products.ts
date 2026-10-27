@@ -77,8 +77,8 @@ export const PRODUCTS: Record<Tier, Product> = {
   r15: {
     tier: "r15",
     kind: "recharge",
-    name: "充值卡密 ¥15",
-    amount: "15.00",
+    name: "充值卡密 面额¥15",
+    amount: "14.00",
     contract: "0x4668114059aF15AC701045AD311DFa974370Ef0e",
     member: true,
     desc: "单码充值，付款后即时发放",
@@ -88,8 +88,8 @@ export const PRODUCTS: Record<Tier, Product> = {
   r30: {
     tier: "r30",
     kind: "recharge",
-    name: "充值卡密 ¥30",
-    amount: "30.00",
+    name: "充值卡密 面额¥30",
+    amount: "27.00",
     contract: "0x0785Bf86A9B9869940F4F605c58386a4BFD0E1CB",
     member: true,
     desc: "单码充值，余额更充足",
@@ -100,8 +100,8 @@ export const PRODUCTS: Record<Tier, Product> = {
   r60: {
     tier: "r60",
     kind: "recharge",
-    name: "充值卡密 ¥60",
-    amount: "60.00",
+    name: "充值卡密 面额¥60",
+    amount: "53.00",
     contract: "0x9aCDfa778ED64AB2D1297FB735862ebdEC97Bc12",
     member: true,
     desc: "高面值单码充值",

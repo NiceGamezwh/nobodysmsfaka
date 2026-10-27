@@ -32,7 +32,7 @@ export default function RechargeHero() {
       <p className="font-ibm-mono text-[13px] md:text-[15px] text-[#888888] tracking-[1px] leading-[1.7] text-center w-full max-w-[720px] text-pretty">
         没有看完教程的请勿购买，售出不退。充值卡密为单码格式，面额对应充值金额；付款后自动发放。
         <br className="hidden md:block" />
-        本页仅售充值卡密（¥15 / ¥30 / ¥60）。尽量用多少充多少，避免余额闲置。
+        本页仅售充值卡密：面额 ¥15 / ¥30 / ¥60，现价 ¥14 / ¥27 / ¥53。尽量用多少充多少，避免余额闲置。
       </p>
 
       <div className="h-5 md:h-6" />
