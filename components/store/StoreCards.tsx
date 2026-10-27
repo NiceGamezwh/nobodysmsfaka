@@ -244,7 +244,7 @@ export default function StoreCards({
             style={{ color: isRecharge ? "#7EC8E3" : "#FFD600" }}
           >
             {isRecharge
-              ? "充值卡密 // 单码 · 现价 ¥14 / ¥27 / ¥53（面额 15/30/60）"
+              ? "充值卡密 // 单码 · 现价 ¥14 / ¥27 / ¥120（面额 15/30/150）"
               : "注册卡密 // 账号----密码 · ¥3 / ¥15 / ¥30"}
           </span>
         </div>
@@ -267,7 +267,7 @@ export default function StoreCards({
               需要给已有账号充值？前往充值卡密页
             </span>
             <span className="font-ibm-mono text-[12px] text-[#888] tracking-[0.5px]">
-              单码格式 · 现价 ¥14 / ¥27 / ¥53 · 付款后自动发放
+              单码格式 · 现价 ¥14 / ¥27 / ¥120 · 付款后自动发放
             </span>
           </div>
           <span className="font-ibm-mono text-[12px] text-[#7EC8E3] tracking-[2px] shrink-0">

@@ -120,14 +120,14 @@ export const PRODUCTS: Record<Tier, Product> = {
   r60: {
     tier: "r60",
     kind: "recharge",
-    name: "充值卡密 面额¥60",
-    amount: "53.00",
-    listAmount: "60.00",
+    name: "充值卡密 面额¥150",
+    amount: "120.00",
+    listAmount: "150.00",
     contract: "0x9aCDfa778ED64AB2D1297FB735862ebdEC97Bc12",
     member: true,
     desc: "高面值单码充值",
     accent: "#FFB347",
-    features: ["链上唯一卡密", "单码充值", "付款即时发放", "永久有效", "60元充值卡密"],
+    features: ["链上唯一卡密", "单码充值", "付款即时发放", "永久有效", "150元充值卡密"],
   },
 };
 
