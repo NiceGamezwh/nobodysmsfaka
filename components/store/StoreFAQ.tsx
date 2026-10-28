@@ -5,7 +5,7 @@ import SectionHeader from "@/components/SectionHeader";
 
 const REGISTER_FAQS = [
   {
-    q: "为什么注册卡密只要 ¥0.1？",
+    q: "为什么注册卡密只要 ¥0.01？",
     a: "这是注册专用卡密，价格刻意压低方便开户；收取象征性费用是为了防止恶意批量注册。本页不出售 15/30 元注册档。",
   },
   {

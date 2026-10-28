@@ -62,7 +62,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     tier: "3",
     kind: "register",
     name: "注册专用卡密",
-    amount: "0.10",
+    amount: "0.01",
     contract: "0xE482CC61DF0dBca6AB3A694a8813Bacf13A04976",
     member: true,
     featured: true,
@@ -74,7 +74,7 @@ export const PRODUCTS: Record<Tier, Product> = {
       "付款即时发放",
       "链上唯一卡密",
       "永久有效",
-      "¥0.1 防滥用",
+      "¥0.01 防滥用",
     ],
   },
   r15: {
