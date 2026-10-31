@@ -66,7 +66,7 @@ export const PRODUCTS: Record<Tier, Product> = {
     contract: "0xE482CC61DF0dBca6AB3A694a8813Bacf13A04976",
     member: true,
     featured: true,
-    desc: "仅用于新账号注册；下单 ¥0.01，实付可能由支付渠道在约 ¥0.01～¥0.10 间微调；防恶意批量注册",
+    desc: "仅用于新账号注册；价格 ¥0.01～¥0.1 随机；防恶意批量注册",
     accent: "#FFD600",
     features: [
       "注册专用",
@@ -74,7 +74,7 @@ export const PRODUCTS: Record<Tier, Product> = {
       "付款即时发放",
       "链上唯一卡密",
       "永久有效",
-      "下单¥0.01·实付微调",
+      "¥0.01～¥0.1 随机",
     ],
   },
   r15: {

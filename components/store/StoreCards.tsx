@@ -81,7 +81,7 @@ function ProductRow({
                   className="font-grotesk text-[48px] font-bold tracking-[-2px] leading-none"
                   style={{ color: save != null ? "#FFD600" : featured ? "#FFD600" : "#F5F5F0" }}
                 >
-                  ¥{yuan}
+                  {p.kind === "register" ? "¥0.01～0.1" : `¥${yuan}`}
                 </span>
                 {listYuan && (
                   <span className="font-ibm-mono text-[18px] text-[#666] tracking-[0.5px] mb-[8px] line-through decoration-[#666]">
@@ -97,7 +97,7 @@ function ProductRow({
               )}
               {p.kind === "register" && (
                 <span className="font-ibm-mono text-[11px] text-[#888888] tracking-[1px]">
-                  标价/下单 ¥{yuan} · 实付可能约 ¥0.01～¥0.10（支付渠道微调）
+                  价格 ¥0.01～¥0.1 随机，以支付页为准
                 </span>
               )}
             </div>
@@ -228,7 +228,7 @@ export default function StoreCards({
     >
       <SectionHeader
         label={isRecharge ? "[01] // 充值卡密" : "[01] // 注册卡密"}
-        title={isRecharge ? "选择充值档位。\n付款即得单码。" : "注册专用卡密。\n下单 ¥0.01。"}
+        title={isRecharge ? "选择充值档位。\n付款即得单码。" : "注册专用卡密。\n¥0.01～¥0.1 随机。"}
       />
 
       {error && (
@@ -250,7 +250,7 @@ export default function StoreCards({
           >
             {isRecharge
               ? "充值卡密 // 单码 · 现价 ¥14 / ¥27 / ¥120（面额 15/30/150）"
-              : "注册专用 // 账号----密码 · 下单 ¥0.01（实付约 0.01～0.10）"}
+              : "注册专用 // 账号----密码 · ¥0.01～¥0.1 随机"}
           </span>
         </div>
         <ProductRow
