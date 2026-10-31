@@ -16,7 +16,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: "NobodySMS 官方卡密 — 付款即发卡",
-  description: "NobodySMS 官方卡密：注册专用 ¥0.01（防恶意注册），以及充值卡密档位；支付宝付款后智能合约即时发放。",
+  description: "NobodySMS 官方卡密：注册专用下单 ¥0.01（实付可能约 0.01～0.10，防恶意注册），以及充值卡密档位；支付宝付款后智能合约即时发放。",
 };
 
 export default function RootLayout({

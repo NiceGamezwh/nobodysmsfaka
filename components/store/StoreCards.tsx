@@ -95,6 +95,11 @@ function ProductRow({
                   面额 ¥{listYuan} · 现价 ¥{yuan} · 立减 ¥{Number.isInteger(save) ? save : save}
                 </span>
               )}
+              {p.kind === "register" && (
+                <span className="font-ibm-mono text-[11px] text-[#888888] tracking-[1px]">
+                  标价/下单 ¥{yuan} · 实付可能约 ¥0.01～¥0.10（支付渠道微调）
+                </span>
+              )}
             </div>
 
             <p className="font-ibm-mono text-[12px] text-[#888888] tracking-[1px] leading-relaxed">
@@ -223,7 +228,7 @@ export default function StoreCards({
     >
       <SectionHeader
         label={isRecharge ? "[01] // 充值卡密" : "[01] // 注册卡密"}
-        title={isRecharge ? "选择充值档位。\n付款即得单码。" : "注册专用卡密。\n¥0.01 防滥用。"}
+        title={isRecharge ? "选择充值档位。\n付款即得单码。" : "注册专用卡密。\n下单 ¥0.01。"}
       />
 
       {error && (
@@ -245,7 +250,7 @@ export default function StoreCards({
           >
             {isRecharge
               ? "充值卡密 // 单码 · 现价 ¥14 / ¥27 / ¥120（面额 15/30/150）"
-              : "注册专用 // 账号----密码 · ¥0.01（防恶意注册）"}
+              : "注册专用 // 账号----密码 · 下单 ¥0.01（实付约 0.01～0.10）"}
           </span>
         </div>
         <ProductRow
